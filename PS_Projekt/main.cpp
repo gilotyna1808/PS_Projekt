@@ -6,13 +6,14 @@
 #include"Proces.h"
 
 void main() {
-	Proces temp("test", 0);//Testowe do usuniecia
 	OperacjaNaProcesach oP;
 	Wyswietlanie w;
 	int x;
-	oP.ZaladujProcesy();
-	w.Wyswietl(&oP);
-	std::cout << "Wpisz id Procesu do zabicia" << std::endl;
+	w.WyswietlMenu();
+	/*oP.ZaladujProcesy();
+	w.WyswietlProcesy(&oP);
+	std::cout << "Wpisz NR Procesu do zabicia" << std::endl;
 	std::cin >> x;
-	temp.ZabijProcesOID(x);
+	oP.ZabijProces(x);
+	*/
 }

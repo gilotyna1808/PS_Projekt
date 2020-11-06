@@ -9,9 +9,11 @@ Wyswietlanie::~Wyswietlanie()
 }
 
 
-void Wyswietlanie::Wyswietl(OperacjaNaProcesach* dane) {
-	for (Proces p : dane->_listaProcesow) {
 
-		std::cout << "Proces: " << p._nazwa << " ID:" <<p._idProcesu << std::endl;
+void Wyswietlanie::WyswietlProcesy(OperacjaNaProcesach* dane) {
+	int iloscProcesow = dane->getIloscProcesow();
+	for (int i = 0; i < iloscProcesow;i++) {
+
+		std::cout <<"NR: "<< i<< " Proces: " << dane->getProces(i).getNazwa() << "ID:" << dane->getProces(i).getIdProcesu() << std::endl;
 	}
 }
