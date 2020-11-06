@@ -34,7 +34,7 @@ extern "C" {
 	int xyscanf(int x, int y, const char* format, ...);
 	int xyprintf(int x, int y, const char* format, ...);
 	void clear(void);
-
+	void clearLine(int);
 #ifdef __cplusplus
 }
 #endif

@@ -33,25 +33,21 @@ struct Tekst
 class Wyswietlanie
 {
 private:
-	Tekst menu{ "Menu" };
-	Tekst opcja1{"1)Wyswielt:",true};
-	Tekst opcja2{" 2)Usun"};
+	int max_x=100;//Maksymalna wartosc wspolrzednej x
+	int max_y=30;//Maksymalna wartosc wspolrzednej y
+	int kolumny[4]{1,5,75,90};//Wspolrzedna x poczastku kolumny ++(Plan)Do zmiany na vektor z mozliwoscia modyfikacji
+	
 public:
+	Tekst menu{ "Menu:",true };
+	Tekst opcja1{ "1)Wyswielt",true };
+	Tekst opcja2{ " 2)Usun" };
+
 	Wyswietlanie();
 	~Wyswietlanie();
 
 	void WyswietlOpis();
-	void WyswietlTabele();
-	void WyswietlMenu() 
-	{
-		int max_x, max_y;
-		getrange(&max_x, &max_y);
-		setcursor(0, max_y - 2);
-		menu.Wypisz();
-		opcja1.Wypisz();
-		opcja2.Wypisz();
-
-	}
+	void WyswietlTabele(int i_row);
+	void WyswietlMenu(int y=30);
 	void WyswietlProcesy(OperacjaNaProcesach* dane); //Wyswietlanie danych o procesach
 };
 

@@ -8,12 +8,32 @@
 void main() {
 	OperacjaNaProcesach oP;
 	Wyswietlanie w;
-	int x;
-	w.WyswietlMenu();
-	/*oP.ZaladujProcesy();
-	w.WyswietlProcesy(&oP);
-	std::cout << "Wpisz NR Procesu do zabicia" << std::endl;
-	std::cin >> x;
-	oP.ZabijProces(x);
-	*/
+	do
+	{
+		w.WyswietlMenu(oP.getIloscProcesow());
+		int wybor;
+		std::cin >> wybor;
+		switch (wybor)
+		{
+		case 1:
+			clear();
+			oP.ZaladujProcesy();
+			w.WyswietlProcesy(&oP);
+			w.WyswietlOpis();
+			break;
+		case 2:
+			clear();
+			int procesID;
+			system("cls");
+			oP.ZaladujProcesy();
+			w.WyswietlProcesy(&oP);
+			w.WyswietlOpis();
+			setcursor(0, oP.getIloscProcesow()+2);
+			std::cout << "Wpisz NR Procesu do zabicia" << std::endl;
+			std::cin >> procesID;
+			oP.ZabijProces(procesID);
+			break;
+		}
+		if (wybor == 0)break;
+	} while (true);
 }

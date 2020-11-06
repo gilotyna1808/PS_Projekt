@@ -110,6 +110,18 @@ void clear(void)
 	SetConsoleCursorPosition(ekran, poczatek);
 }
 
+void clearLine(int line) 
+{
+	HANDLE ekran = GetStdHandle(STD_OUTPUT_HANDLE);
+	CONSOLE_SCREEN_BUFFER_INFO bufor;
+	COORD poczatek = { 0,line };
+	DWORD znaki;
+	GetConsoleScreenBufferInfo(ekran, &bufor);
+	FillConsoleOutputCharacter(ekran, ' ', bufor.dwSize.X, poczatek, &znaki);
+	SetConsoleCursorPosition(ekran, poczatek);
+	setcursor(0, line);
+}
+
 BOOL ClearConsole(HANDLE ekran) // implementacja wlasna
 {
 	CONSOLE_SCREEN_BUFFER_INFO bufor;
