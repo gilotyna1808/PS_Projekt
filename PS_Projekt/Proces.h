@@ -5,6 +5,7 @@
 #include <tchar.h>
 #include <windows.h>
 
+
 class Proces
 {
 private:
