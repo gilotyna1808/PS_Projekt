@@ -5,12 +5,15 @@
 #include <tchar.h>
 #include <windows.h>
 
+
 struct ProcesExp
 {
-	int linia;//Przechowuje linie wyst¹pienia wyj¹tku
+	int linia;//Przechowuje linie wystÂ¹pienia wyjÂ¹tku
 	std::string txt;
 	std::string className = "Proces";
 };
+
+
 
 class Proces
 {
@@ -19,7 +22,7 @@ private:
 	int _idProcesu;
 	//...
 public:
-	//Pola przechowuj¹ce informacje o procesie Chwilowo publiczne
+	//Pola przechowujÂ¹ce informacje o procesie Chwilowo publiczne
 	
 	//Konstruktory
 	Proces(std::string i_nazwa, int i_idProcesu);

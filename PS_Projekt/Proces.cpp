@@ -7,6 +7,7 @@ Proces::Proces(std::string i_nazwa, int i_idProcesu)
 
 void Proces::ZabijProces() {
 	HANDLE uchwyt = OpenProcess(PROCESS_TERMINATE, FALSE, _idProcesu);
+
     if (uchwyt == NULL)
     {
         throw ProcesExp{12,"Pusty uchwyt"};
@@ -14,13 +15,16 @@ void Proces::ZabijProces() {
     if (TerminateProcess(uchwyt, -1))
     {}
     else {
-        throw ProcesExp{ 12,"B³¹d zamkniêcia procesu" };
+        throw ProcesExp{ 12,"Bï¿½ï¿½d zamkniï¿½cia procesu" };
     }
+
+    TerminateProcess(uchwyt, -1);
     CloseHandle(uchwyt);
 }
 
 void Proces::ZabijProcesOID(int i_id) {
     HANDLE uchwyt = OpenProcess(PROCESS_TERMINATE, FALSE, i_id);
+
     if (uchwyt == NULL)
     {
         throw ProcesExp{ 12,"Pusty uchwyt" };
@@ -29,7 +33,10 @@ void Proces::ZabijProcesOID(int i_id) {
     {
     }
     else {
-        throw ProcesExp{ 12,"B³¹d zamkniêcia procesu" };
+        throw ProcesExp{ 12,"Bï¿½ï¿½d zamkniï¿½cia procesu" };
     }
+
+    TerminateProcess(uchwyt, -1);
+
     CloseHandle(uchwyt);
 }
