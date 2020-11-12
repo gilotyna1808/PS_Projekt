@@ -6,6 +6,15 @@
 #include <windows.h>
 
 
+struct ProcesExp
+{
+	int linia;//Przechowuje linie wyst¹pienia wyj¹tku
+	std::string txt;
+	std::string className = "Proces";
+};
+
+
+
 class Proces
 {
 private:
@@ -13,7 +22,7 @@ private:
 	int _idProcesu;
 	//...
 public:
-	//Pola przechowuj�ce informacje o procesie Chwilowo publiczne
+	//Pola przechowuj¹ce informacje o procesie Chwilowo publiczne
 	
 	//Konstruktory
 	Proces(std::string i_nazwa, int i_idProcesu);
