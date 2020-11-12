@@ -22,10 +22,10 @@ public:
 
 	//Gettery
 
-	int getIloscProcesow() { return _iloscProcesow;}
+	int getIloscProcesow() { return _iloscProcesow; }
 
 	//Metody
-	
+
 	void ZaladujProcesy();
 	void ZabijProces(int i_id);
 	Proces getProces(int i_id);
