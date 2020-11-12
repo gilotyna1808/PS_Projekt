@@ -1,0 +1,5 @@
+﻿  Wyswietlanie.cpp
+  main.cpp
+E:\STUDIA PC\PS\PROJEKT\PS_Projekt-master\PS_Projekt-master\PS_Projekt\main.cpp(8,13): warning C4326: return type of 'main' should be 'int' instead of 'void'
+  Generating Code...
+  PS_Projekt.vcxproj -> E:\STUDIA PC\PS\PROJEKT\PS_Projekt-master\PS_Projekt-master\x64\Debug\PS_Projekt.exe
