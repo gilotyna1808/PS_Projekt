@@ -10,14 +10,24 @@
 class OperacjaNaProcesach
 {
 private:
-
-	
+	std::vector<Proces> _listaProcesow;//Pole przechowujace procesy
+	int _iloscProcesow = 0; //Pole przechowuj¹ce ilosc procesów w vektorze _listaProcesów
 
 public:
-	std::vector<Proces> _listaProcesow;//Chwilowo publiczne
+	//Konstruktory 
 	OperacjaNaProcesach();
+
+	//Dekonstruktor
 	~OperacjaNaProcesach();
 
+	//Gettery
+
+	int getIloscProcesow() { return _iloscProcesow;}
+
+	//Metody
+	
 	void ZaladujProcesy();
+	void ZabijProces(int i_id);
+	Proces getProces(int i_id);
 };
 
