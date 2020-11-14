@@ -45,6 +45,7 @@ void OperacjaNaProcesach::ZaladujProcesy() {
         id = pe32.th32ProcessID;
         Proces temp(nazwa, id);
         _listaProcesow.push_back(temp);
+        listaIdProcesow.push_back(id);
 
     } while (Process32Next(hProcessSnap, &pe32));//Kontynuuj do poki istnieje nastepna
 

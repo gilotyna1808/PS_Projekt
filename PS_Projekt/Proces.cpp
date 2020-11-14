@@ -15,7 +15,7 @@ void Proces::ZabijProces() {
     if (TerminateProcess(uchwyt, -1))
     {}
     else {
-        throw ProcesExp{ 12,"B��d zamkni�cia procesu" };
+        throw ProcesExp{ 12,"Blad zamkniecia procesu" };
     }
 
     TerminateProcess(uchwyt, -1);
@@ -33,7 +33,7 @@ void Proces::ZabijProcesOID(int i_id) {
     {
     }
     else {
-        throw ProcesExp{ 12,"B��d zamkni�cia procesu" };
+        throw ProcesExp{ 12,"Blad zamkniecia procesu" };
     }
 
     TerminateProcess(uchwyt, -1);
