@@ -1,7 +1,7 @@
 #include"Proces.h"
 
-Proces::Proces(std::string i_nazwa, int i_idProcesu) 
-	:_nazwa(i_nazwa),_idProcesu(i_idProcesu)
+Proces::Proces(std::string i_nazwa, int i_idProcesu, DWORD i_priorytetProcesu)
+	:_nazwa(i_nazwa),_idProcesu(i_idProcesu),_priorytetProcesu(i_priorytetProcesu)
 {}
 
 
@@ -15,7 +15,7 @@ void Proces::ZabijProces() {
     if (TerminateProcess(uchwyt, -1))
     {}
     else {
-        throw ProcesExp{ 12,"B��d zamkni�cia procesu" };
+        throw ProcesExp{ 12,"Blad zamkniecia procesu" };
     }
 
     TerminateProcess(uchwyt, -1);
@@ -33,7 +33,7 @@ void Proces::ZabijProcesOID(int i_id) {
     {
     }
     else {
-        throw ProcesExp{ 12,"B��d zamkni�cia procesu" };
+        throw ProcesExp{ 12,"Blad zamkniecia procesu" };
     }
 
     TerminateProcess(uchwyt, -1);

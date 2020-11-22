@@ -45,15 +45,20 @@ struct Strony
 class Wyswietlanie
 {
 private:
-	int max_x = 100;//Maksymalna wartosc wspolrzednej x
+	int max_x = 120;//Maksymalna wartosc wspolrzednej x
 	int max_y = 30;//Maksymalna wartosc wspolrzednej y
-	int kolumny[4]{ 1,5,75,90 };//Wspolrzedna x poczastku kolumny ++(Plan)Do zmiany na vektor z mozliwoscia modyfikacji
+	int kolumny[5]{ 1,5,35,47,70 };//Wspolrzedna x poczastku kolumny ++(Plan)Do zmiany na vektor z mozliwoscia modyfikacji
 	int przesuniecie = 0;
+	int nr_strony = 1;
 
 public:
 	Tekst menu{ "Menu: ",true };
 	Tekst opcja1{ "1) Wyswietl ",true };
 	Tekst opcja2{ "2) Usun " };
+	vector<Proces> procesy;
+	int aktualnaStrona = 1;
+	int aktualnaWartoscMinimalna = 1;
+	int aktualnaWartoscMaksymalna = 20;
 
 	Wyswietlanie();
 	~Wyswietlanie();
@@ -61,7 +66,10 @@ public:
 	void WyswietlOpis();
 	void WyswietlTabele(int i_row);
 	void WyswietlMenu(int y = 30);
-	void WyswietlProcesy(OperacjaNaProcesach* dane); //Wyswietlanie danych o procesach
+	void WyswietlProcesy(OperacjaNaProcesach* dane, int min, int max); //Wyswietlanie danych o procesach
 	int getPrzesuniecie();
+	std::string NazwaPriorytetu(DWORD i_priorytet);
+	void Wypisz(int i_poczatek, int i_koniec, std::string i_txt);
+	void KontrolerWyswietlania(OperacjaNaProcesach* dane, int iloscProcesow, bool usuwanie);
 };
 

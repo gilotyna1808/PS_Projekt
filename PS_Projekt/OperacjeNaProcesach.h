@@ -14,6 +14,8 @@ private:
 	int _iloscProcesow = 0; //Pole przechowuj¹ce ilosc procesów w vektorze _listaProcesów
 
 public:
+	std::vector<int> listaIdProcesow;
+
 	//Konstruktory 
 	OperacjaNaProcesach();
 
