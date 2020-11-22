@@ -11,11 +11,12 @@ OperacjaNaProcesach::~OperacjaNaProcesach()
 void OperacjaNaProcesach::ZaladujProcesy() {
 
     _listaProcesow.clear(); //Czyszczenie vektora z procesami
+    _listaProcesow2.clear();
     //Zmienne przechowuj¹ce uchwyty
     HANDLE hProcessSnap;
     HANDLE hProcess;
     PROCESSENTRY32 pe32;
-
+    int licznik = 0;
     // Pobieranie obrazu wszystkich procesów
     hProcessSnap = CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS, 0);
     if (hProcessSnap == INVALID_HANDLE_VALUE) //Sprawdzanie czy pobranie obrazu siê powiod³o
@@ -42,11 +43,18 @@ void OperacjaNaProcesach::ZaladujProcesy() {
         DWORD priorytet=0; //Zmienna przechowuj¹ca informacje o priorytecie
 
         hProcess = OpenProcess(PROCESS_ALL_ACCESS, FALSE, pe32.th32ProcessID);
+        //Pobieranie informacji
         id = pe32.th32ProcessID;
         priorytet = pe32.pcPriClassBase;
-        Proces temp(nazwa, id, priorytet);
+        //Wpisywanie informacji
+        Proces temp(licznik++,nazwa, id, priorytet);
         _listaProcesow.push_back(temp);
-        listaIdProcesow.push_back(id);
+        //Zmiana nazwy na male litery
+        std::transform(nazwa.begin(), nazwa.end(), nazwa.begin(), [](unsigned char c) { return std::tolower(c); });
+        _listaProcesow2[nazwa.substr(0,15)].push_back(temp);
+        
+        
+        //listaIdProcesow.push_back(id);
 
     } while (Process32Next(hProcessSnap, &pe32));//Kontynuuj do poki istnieje nastepna
 
@@ -70,4 +78,25 @@ Proces OperacjaNaProcesach::getProces(int i_id)
         throw std::string("Z³y nr procesu");
     }
     return _listaProcesow[i_id];
+}
+
+Proces OperacjaNaProcesach::getProcesSort(int i_id){
+    if (i_id >= _listaProcesow.size() || i_id < 1)  //BLAD ROWNIEZ PRZY WARTOSCI 0
+    {
+        throw std::string("Z³y nr procesu");
+    }
+    std::map<std::string, std::vector<Proces>>::const_iterator iterator = _listaProcesow2.begin();
+    int poczatekVektora = 0;
+    int wskaznikWektora = 0;
+    for (size_t i = 1; i < i_id+1; i++)
+    {
+        if(iterator->second.size()>wskaznikWektora)wskaznikWektora++;
+        if (iterator->second.size() + poczatekVektora == i) {
+            if (iterator!=_listaProcesow2.end())iterator++;
+            wskaznikWektora = 0;
+            poczatekVektora = i;
+        }
+    }
+    Proces temp = iterator->second[wskaznikWektora];
+    return temp;
 }
