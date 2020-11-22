@@ -33,7 +33,9 @@ void Wyswietlanie::WyswietlOpis()
 	printf("|");
 	setcursor(kolumny[2] - 1, 1);
 	printf("|");
-	setcursor(kolumny[3], 1);
+	setcursor(kolumny[3] -1 , 1);
+	printf("|");
+	setcursor(kolumny[4], 1);
 	printf("|");
 
 	setcursor(kolumny[0], 1);
@@ -42,14 +44,16 @@ void Wyswietlanie::WyswietlOpis()
 	printf("Nazwa");
 	setcursor(kolumny[2], 1);
 	printf("ID Procesu");
+	setcursor(kolumny[3], 1);
+	printf("Priorytet");
 }
 
 void Wyswietlanie::WyswietlTabele(int i_row)
 {
 	setcursor(0, i_row);
-	for (size_t i = 0; i < kolumny[3]; i++)
+	for (size_t i = 0; i < kolumny[4]; i++)
 	{
-		if (i == (kolumny[0] - 1) || i == (kolumny[1] - 1) || i == (kolumny[2] - 1))printf("+");
+		if (i == (kolumny[0] - 1) || i == (kolumny[1] - 1) || i == (kolumny[2] - 1)|| i == ( kolumny[3] - 1))printf("+");
 		else printf("-");
 	}
 	printf("+");
@@ -106,18 +110,24 @@ void Wyswietlanie::WyswietlProcesy(OperacjaNaProcesach* dane, int min, int max)
 		if (i < iloscProcesow)
 		{
 			procesy.push_back(dane->getProces(i));
+			//Wypisywanie Nr
 			setcursor(kolumny[0] - 1, j + 1);
 			printf("|");
-			printf("%d", i);
+			Wypisz(kolumny[0], kolumny[1], std::to_string(i));
+			//Wypisywanie Nazwy
 			setcursor(kolumny[1] - 1, j + 1);
 			printf("|");
-			printf("%s", dane->getProces(i).getNazwa().c_str());
-			//printf("%s", procesy[i].getNazwa().c_str());
+			Wypisz(kolumny[1], kolumny[2], dane->getProces(i).getNazwa());
+			//Wypisywanie Nr PID
 			setcursor(kolumny[2] - 1, j + 1);
 			printf("|");
-			printf("%d", dane->getProces(i).getIdProcesu());
-			//printf("%d", procesy[i].getIdProcesu());
-			setcursor(kolumny[3], j + 1);
+			Wypisz(kolumny[2], kolumny[3], std::to_string(dane->getProces(i).getIdProcesu()));
+			//Wypisywanie Priorytetu
+			setcursor(kolumny[3]-1, j + 1);
+			printf("|");
+			DWORD tempPriorytet = dane->getProces(i).getPriorytet();
+			Wypisz(kolumny[3], kolumny[4], NazwaPriorytetu(tempPriorytet));
+			setcursor(kolumny[4], j + 1);
 			printf("|");
 			licznik++;
 			j++;
@@ -125,8 +135,6 @@ void Wyswietlanie::WyswietlProcesy(OperacjaNaProcesach* dane, int min, int max)
 	}
 	//WyswietlTabele(iloscProcesow + przesuniecie);  //zmiany: (+20) "na brudno"
 	WyswietlTabele(22);
-
-
 }
 int Wyswietlanie::getPrzesuniecie()
 {
@@ -183,4 +191,48 @@ void Wyswietlanie::KontrolerWyswietlania(OperacjaNaProcesach* dane, int iloscPro
 	aktualnaStrona = 1;
 	aktualnaWartoscMinimalna = 1;
 	aktualnaWartoscMaksymalna = 20;
+}
+
+std::string Wyswietlanie::NazwaPriorytetu(DWORD i_priorytet) {
+	switch (i_priorytet)
+	{
+	case 4:
+		return "Niski";
+		break;
+	case 6:
+		return "Ponizej normalnego";
+		break;
+	case 8:
+		return "Normalny";
+		break;
+	case 10:
+		return "Powyzej normalnego";
+		break;
+	case 13:
+		return "Wysoki";
+		break;
+	case 24:
+		return "Czasu Rzeczywistego";
+		break;
+	default:
+		return "Normalny";
+		break;
+	}
+}
+
+void Wyswietlanie::Wypisz(int i_poczatek, int i_koniec, std::string i_txt) 
+{
+	if (i_poczatek>=i_koniec)
+	{
+		abort();
+	}
+	int rozmiar = i_koniec - i_poczatek;
+	if (i_txt.size()>rozmiar)
+	{
+		i_txt = i_txt.substr(0,rozmiar);
+		printf("%s", i_txt.c_str());
+	}
+	else {
+		printf("%s", i_txt.c_str());
+	}
 }

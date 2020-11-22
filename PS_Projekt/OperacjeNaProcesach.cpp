@@ -15,7 +15,6 @@ void OperacjaNaProcesach::ZaladujProcesy() {
     HANDLE hProcessSnap;
     HANDLE hProcess;
     PROCESSENTRY32 pe32;
-    DWORD dwPriorityClass;
 
     // Pobieranie obrazu wszystkich procesów
     hProcessSnap = CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS, 0);
@@ -40,10 +39,12 @@ void OperacjaNaProcesach::ZaladujProcesy() {
         int id; //Zmienna przechowuj¹ca id procesu
         std::wstring ws(pe32.szExeFile);//Pobranie nazwy procesu
         std::string nazwa(ws.begin(), ws.end()); //Zmienna przechowuj¹ca nazwê procesu w formacji string
+        DWORD priorytet=0; //Zmienna przechowuj¹ca informacje o priorytecie
 
         hProcess = OpenProcess(PROCESS_ALL_ACCESS, FALSE, pe32.th32ProcessID);
         id = pe32.th32ProcessID;
-        Proces temp(nazwa, id);
+        priorytet = pe32.pcPriClassBase;
+        Proces temp(nazwa, id, priorytet);
         _listaProcesow.push_back(temp);
         listaIdProcesow.push_back(id);
 

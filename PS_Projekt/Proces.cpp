@@ -1,7 +1,7 @@
 #include"Proces.h"
 
-Proces::Proces(std::string i_nazwa, int i_idProcesu) 
-	:_nazwa(i_nazwa),_idProcesu(i_idProcesu)
+Proces::Proces(std::string i_nazwa, int i_idProcesu, DWORD i_priorytetProcesu)
+	:_nazwa(i_nazwa),_idProcesu(i_idProcesu),_priorytetProcesu(i_priorytetProcesu)
 {}
 
 
