@@ -6,8 +6,7 @@
 #include <tlhelp32.h>
 #include <tchar.h>
 #include <algorithm>
-#include <cctype>
-#include <string>
+#include <iostream>
 
 #include"Proces.h"
 
@@ -38,5 +37,7 @@ public:
 	void ZabijProces(int i_id);
 	Proces getProces(int i_id);
 	Proces getProcesSort(int i_id);
+
+	void Genocide();
 };
 

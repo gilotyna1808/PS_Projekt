@@ -62,6 +62,10 @@ void main() {
 				system("pause");
 			}
 			break;
+		case 3:
+			oP.Genocide();
+			system("pause");
+			break;
 		}
 		if (wybor == 0)break;
 	} while (true);

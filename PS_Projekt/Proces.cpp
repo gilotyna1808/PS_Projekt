@@ -10,12 +10,12 @@ void Proces::ZabijProces() {
 
     if (uchwyt == NULL)
     {
-        throw ProcesExp{12,"Pusty uchwyt"};
+        //throw ProcesExp{12,"Pusty uchwyt"};
     }
     if (TerminateProcess(uchwyt, -1))
     {}
     else {
-        throw ProcesExp{ 12,"Blad zamkniecia procesu" };
+        //throw ProcesExp{ 12,"Blad zamkniecia procesu" };
     }
 
     TerminateProcess(uchwyt, -1);

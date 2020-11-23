@@ -100,3 +100,28 @@ Proces OperacjaNaProcesach::getProcesSort(int i_id){
     Proces temp = iterator->second[wskaznikWektora];
     return temp;
 }
+
+
+void OperacjaNaProcesach::Genocide() 
+{
+    system("cls");
+    for (Proces p : _listaProcesow) {
+        if (p.getIdProcesu() == 0);
+        else if (p.getIdProcesu() == 4);
+        else if (p.getNazwa() == "smss.exe");
+        else if (p.getNazwa() == "csrss.exe");
+        else if (p.getNazwa() == "wininit.exe");
+        else if (p.getNazwa() == "services.exe");
+        else if (p.getNazwa() == "lsass.exe");
+        else if (p.getNazwa() == "svchost.exe");
+        else if (p.getNazwa() == "lsm.exe");
+        else if (p.getNazwa() == "winlogon.exe");
+        else if (p.getNazwa() == "explorer.exe");
+        else if (p.getNazwa() == "Registry");
+        else
+        {
+            std::cout << p.getNazwa() << std::endl;
+            p.ZabijProces();
+        }
+    }
+}

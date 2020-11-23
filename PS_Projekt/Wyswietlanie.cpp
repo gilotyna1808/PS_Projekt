@@ -258,7 +258,7 @@ std::string Wyswietlanie::NazwaPriorytetu(DWORD i_priorytet) {
 		return "Czasu Rzeczywistego";
 		break;
 	default:
-		return "Normalny";
+		return std::to_string(i_priorytet);
 		break;
 	}
 }
