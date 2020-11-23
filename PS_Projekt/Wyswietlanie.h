@@ -67,9 +67,10 @@ public:
 	void WyswietlTabele(int i_row);
 	void WyswietlMenu(int y = 30);
 	void WyswietlProcesy(OperacjaNaProcesach* dane, int min, int max); //Wyswietlanie danych o procesach
+	void WyswietlProcesySort(OperacjaNaProcesach* dane, int min, int max); //Wyswietlanie danych o procesach
 	int getPrzesuniecie();
 	std::string NazwaPriorytetu(DWORD i_priorytet);
 	void Wypisz(int i_poczatek, int i_koniec, std::string i_txt);
-	void KontrolerWyswietlania(OperacjaNaProcesach* dane, int iloscProcesow, bool usuwanie);
+	void KontrolerWyswietlania(OperacjaNaProcesach* dane, int iloscProcesow, bool usuwanie, bool sortowane);
 };
 
