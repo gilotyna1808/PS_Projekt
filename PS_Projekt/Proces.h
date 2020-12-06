@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <tchar.h>
 #include <windows.h>
+#include "Procesor.h"
 
 
 struct ProcesExp
@@ -23,12 +24,13 @@ private:
 	std::string _nazwa;
 	int _idProcesu;
 	DWORD _priorytetProcesu;
+	Procesor _proc;
 	//...
 public:
 	//Pola przechowuj¹ce informacje o procesie Chwilowo publiczne
 	
 	//Konstruktory
-	Proces(int i_nr,std::string i_nazwa, int i_idProcesu, DWORD i_priorytetProcesu);
+	Proces(int i_nr,std::string i_nazwa, int i_idProcesu, DWORD i_priorytetProcesu, Procesor i_proc);
 
 	//Gettery i Settery
 
@@ -36,7 +38,9 @@ public:
 	int getIdProcesu() { return _idProcesu; }
 	DWORD getPriorytet() { return _priorytetProcesu; }
 	int getNr(){ return _nr; }
+	
 	//Metody
 	void ZabijProces();
 	void ZabijProcesOID(int i_id);
+	std::string getCpuUsage();
 };

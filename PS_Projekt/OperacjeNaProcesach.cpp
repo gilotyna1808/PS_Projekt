@@ -41,13 +41,13 @@ void OperacjaNaProcesach::ZaladujProcesy() {
         std::wstring ws(pe32.szExeFile);//Pobranie nazwy procesu
         std::string nazwa(ws.begin(), ws.end()); //Zmienna przechowuj¹ca nazwê procesu w formacji string
         DWORD priorytet=0; //Zmienna przechowuj¹ca informacje o priorytecie
-
+        Procesor proc;
         hProcess = OpenProcess(PROCESS_ALL_ACCESS, FALSE, pe32.th32ProcessID);
         //Pobieranie informacji
         id = pe32.th32ProcessID;
         priorytet = pe32.pcPriClassBase;
         //Wpisywanie informacji
-        Proces temp(licznik++,nazwa, id, priorytet);
+        Proces temp(licznik++,nazwa, id, priorytet,proc);
         _listaProcesow.push_back(temp);
         //Zmiana nazwy na male litery
         std::transform(nazwa.begin(), nazwa.end(), nazwa.begin(), [](unsigned char c) { return std::tolower(c); });
