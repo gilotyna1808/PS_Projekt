@@ -47,7 +47,7 @@ class Wyswietlanie
 private:
 	int max_x = 120;//Maksymalna wartosc wspolrzednej x
 	int max_y = 30;//Maksymalna wartosc wspolrzednej y
-	int kolumny[5]{ 1,5,35,47,70 };//Wspolrzedna x poczastku kolumny ++(Plan)Do zmiany na vektor z mozliwoscia modyfikacji
+	int kolumny[6]{ 1,5,35,47,70,76 };//Wspolrzedna x poczatku kolumny ++(Plan)Do zmiany na vektor z mozliwoscia modyfikacji
 	int przesuniecie = 0;
 	int nr_strony = 1;
 

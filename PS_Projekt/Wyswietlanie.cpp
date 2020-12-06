@@ -35,7 +35,9 @@ void Wyswietlanie::WyswietlOpis()
 	printf("|");
 	setcursor(kolumny[3] -1 , 1);
 	printf("|");
-	setcursor(kolumny[4], 1);
+	setcursor(kolumny[4] -1, 1);
+	printf("|");
+	setcursor(kolumny[5], 1);
 	printf("|");
 
 	setcursor(kolumny[0], 1);
@@ -46,14 +48,16 @@ void Wyswietlanie::WyswietlOpis()
 	printf("ID Procesu");
 	setcursor(kolumny[3], 1);
 	printf("Priorytet");
+	setcursor(kolumny[4], 1);
+	printf("CPU[%%]");
 }
 
 void Wyswietlanie::WyswietlTabele(int i_row)
 {
 	setcursor(0, i_row);
-	for (size_t i = 0; i < kolumny[4]; i++)
+	for (size_t i = 0; i < kolumny[5]; i++)
 	{
-		if (i == (kolumny[0] - 1) || i == (kolumny[1] - 1) || i == (kolumny[2] - 1)|| i == ( kolumny[3] - 1))printf("+");
+		if (i == (kolumny[0] - 1) || i == (kolumny[1] - 1) || i == (kolumny[2] - 1)|| i == ( kolumny[3] - 1)|| i==(kolumny[4])-1)printf("+");
 		else printf("-");
 	}
 	printf("+");
@@ -127,7 +131,12 @@ void Wyswietlanie::WyswietlProcesy(OperacjaNaProcesach* dane, int min, int max)
 			printf("|");
 			DWORD tempPriorytet = dane->getProces(i).getPriorytet();
 			Wypisz(kolumny[3], kolumny[4], NazwaPriorytetu(tempPriorytet));
-			setcursor(kolumny[4], j + 1);
+			//Wpisywanie cpu
+			setcursor(kolumny[4] - 1, j + 1);
+			printf("|");
+			Wypisz(kolumny[4], kolumny[5], dane->getProces(i).getCpuUsage());
+			//koniec tabeli
+			setcursor(kolumny[5], j + 1);
 			printf("|");
 			licznik++;
 			j++;
@@ -167,7 +176,12 @@ void Wyswietlanie::WyswietlProcesySort(OperacjaNaProcesach* dane, int min, int m
 			printf("|");
 			DWORD tempPriorytet = temp.getPriorytet();
 			Wypisz(kolumny[3], kolumny[4], NazwaPriorytetu(tempPriorytet));
-			setcursor(kolumny[4], j + 1);
+			//Wpisywanie cpu
+			setcursor(kolumny[4] - 1, j + 1);
+			printf("|");
+			Wypisz(kolumny[4], kolumny[5], temp.getCpuUsage());
+			//koniec tabeli
+			setcursor(kolumny[5], j + 1);
 			printf("|");
 			licznik++;
 			j++;
@@ -279,3 +293,4 @@ void Wyswietlanie::Wypisz(int i_poczatek, int i_koniec, std::string i_txt)
 		printf("%s", i_txt.c_str());
 	}
 }
+

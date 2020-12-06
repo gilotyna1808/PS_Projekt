@@ -17,6 +17,7 @@ private:
 	std::map<std::string, std::vector<Proces>> _listaProcesow2;
 	std::vector<Proces> _listaProcesow;//Pole przechowujace procesy
 	int _iloscProcesow = 0; //Pole przechowuj¹ce ilosc procesów w vektorze _listaProcesów
+	int _iloscProcesorow = -1;
 
 public:
 	//std::vector<int> listaIdProcesow;
@@ -37,6 +38,7 @@ public:
 	void ZabijProces(int i_id);
 	Proces getProces(int i_id);
 	Proces getProcesSort(int i_id);
+
 
 	void Genocide();
 };
