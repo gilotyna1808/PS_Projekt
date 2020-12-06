@@ -136,12 +136,53 @@ void Wyswietlanie::WyswietlProcesy(OperacjaNaProcesach* dane, int min, int max)
 	//WyswietlTabele(iloscProcesow + przesuniecie);  //zmiany: (+20) "na brudno"
 	WyswietlTabele(22);
 }
+
+void Wyswietlanie::WyswietlProcesySort(OperacjaNaProcesach* dane, int min, int max)
+{
+	int iloscProcesow = dane->getIloscProcesow();
+	int licznik = 0;
+	int j = 1;
+	WyswietlTabele(0);
+	WyswietlOpis();
+	for (int i = min; i <= max; i++) //ZREZYGNOWANIE Z WYSWIETLANIA PROCESU o numerze 0
+	{
+		if (i < iloscProcesow)
+		{
+			procesy.push_back(dane->getProcesSort(i));
+			Proces temp = dane->getProcesSort(i);
+			//Wypisywanie Nr
+			setcursor(kolumny[0] - 1, j + 1);
+			printf("|");
+			Wypisz(kolumny[0], kolumny[1], std::to_string(temp.getNr()));
+			//Wypisywanie Nazwy
+			setcursor(kolumny[1] - 1, j + 1);
+			printf("|");
+			Wypisz(kolumny[1], kolumny[2], temp.getNazwa());
+			//Wypisywanie Nr PID
+			setcursor(kolumny[2] - 1, j + 1);
+			printf("|");
+			Wypisz(kolumny[2], kolumny[3], std::to_string(temp.getIdProcesu()));
+			//Wypisywanie Priorytetu
+			setcursor(kolumny[3] - 1, j + 1);
+			printf("|");
+			DWORD tempPriorytet = temp.getPriorytet();
+			Wypisz(kolumny[3], kolumny[4], NazwaPriorytetu(tempPriorytet));
+			setcursor(kolumny[4], j + 1);
+			printf("|");
+			licznik++;
+			j++;
+		}
+	}
+	//WyswietlTabele(iloscProcesow + przesuniecie);  //zmiany: (+20) "na brudno"
+	WyswietlTabele(22);
+}
+
 int Wyswietlanie::getPrzesuniecie()
 {
 	return przesuniecie;
 }
 
-void Wyswietlanie::KontrolerWyswietlania(OperacjaNaProcesach* dane, int iloscProcesow, bool usuwanie)
+void Wyswietlanie::KontrolerWyswietlania(OperacjaNaProcesach* dane, int iloscProcesow, bool usuwanie, bool sortowane)
 {
 	char wybor;
 	bool flaga = true;
@@ -150,7 +191,9 @@ void Wyswietlanie::KontrolerWyswietlania(OperacjaNaProcesach* dane, int iloscPro
 	{
 		string aktualnaStronaNapis = std::to_string(aktualnaStrona);
 		system("cls");
-		WyswietlProcesy(dane, aktualnaWartoscMinimalna, aktualnaWartoscMaksymalna);
+		if (sortowane)WyswietlProcesySort(dane, aktualnaWartoscMinimalna, aktualnaWartoscMaksymalna);
+		else WyswietlProcesy(dane, aktualnaWartoscMinimalna, aktualnaWartoscMaksymalna);
+		
 		std::cout << endl;
 		if (usuwanie)
 		{
@@ -215,7 +258,7 @@ std::string Wyswietlanie::NazwaPriorytetu(DWORD i_priorytet) {
 		return "Czasu Rzeczywistego";
 		break;
 	default:
-		return "Normalny";
+		return std::to_string(i_priorytet);
 		break;
 	}
 }

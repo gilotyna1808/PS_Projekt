@@ -19,6 +19,7 @@ struct ProcesExp
 class Proces
 {
 private:
+	int _nr;
 	std::string _nazwa;
 	int _idProcesu;
 	DWORD _priorytetProcesu;
@@ -27,13 +28,14 @@ public:
 	//Pola przechowuj¹ce informacje o procesie Chwilowo publiczne
 	
 	//Konstruktory
-	Proces(std::string i_nazwa, int i_idProcesu, DWORD i_priorytetProcesu);
+	Proces(int i_nr,std::string i_nazwa, int i_idProcesu, DWORD i_priorytetProcesu);
 
 	//Gettery i Settery
 
 	std::string getNazwa() { return _nazwa; }
 	int getIdProcesu() { return _idProcesu; }
 	DWORD getPriorytet() { return _priorytetProcesu; }
+	int getNr(){ return _nr; }
 	//Metody
 	void ZabijProces();
 	void ZabijProcesOID(int i_id);

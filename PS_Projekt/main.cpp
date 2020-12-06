@@ -22,7 +22,7 @@ void main() {
 			clear();
 			oP.ZaladujProcesy();
 			//w.WyswietlProcesy(&oP);
-			w.KontrolerWyswietlania(&oP, oP.getIloscProcesow(), false);
+			w.KontrolerWyswietlania(&oP, oP.getIloscProcesow(), false,true);
 			break;
 		case 2:
 			clear();
@@ -30,7 +30,7 @@ void main() {
 			system("cls");
 			oP.ZaladujProcesy();
 			//w.WyswietlProcesy(&oP);
-			w.KontrolerWyswietlania(&oP, oP.getIloscProcesow(), true);
+			w.KontrolerWyswietlania(&oP, oP.getIloscProcesow(), true,true);
 			setcursor(0, 24);
 			std::cout << "Wpisz NR Procesu do zabicia" << std::endl;
 			std::cin >> procesNR;
@@ -61,6 +61,10 @@ void main() {
 				std::cout << "Proces o podanym ID nie istnieje!" << endl;
 				system("pause");
 			}
+			break;
+		case 3:
+			oP.Genocide();
+			system("pause");
 			break;
 		}
 		if (wybor == 0)break;
