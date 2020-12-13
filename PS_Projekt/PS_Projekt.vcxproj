@@ -22,12 +22,16 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="OperacjeNaProcesach.cpp" />
     <ClCompile Include="Proces.cpp" />
+    <ClCompile Include="Procesor.cpp" />
     <ClCompile Include="Wyswietlanie.cpp" />
+    <ClCompile Include="xyio.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="OperacjeNaProcesach.h" />
     <ClInclude Include="Proces.h" />
+    <ClInclude Include="Procesor.h" />
     <ClInclude Include="Wyswietlanie.h" />
+    <ClInclude Include="xyio.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

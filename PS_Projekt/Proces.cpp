@@ -1,38 +1,54 @@
 #include"Proces.h"
 
-Proces::Proces(std::string i_nazwa, int i_idProcesu) 
-	:_nazwa(i_nazwa),_idProcesu(i_idProcesu)
-{}
+Proces::Proces(int i_nr,std::string i_nazwa, int i_idProcesu, DWORD i_priorytetProcesu, Procesor i_proc)
+	:_nr(i_nr), _nazwa(i_nazwa),_idProcesu(i_idProcesu),_priorytetProcesu(i_priorytetProcesu),_proc(i_proc)
+{
+    int x=_proc.GetUsage(i_idProcesu);
+}
 
 
 void Proces::ZabijProces() {
 	HANDLE uchwyt = OpenProcess(PROCESS_TERMINATE, FALSE, _idProcesu);
+
     if (uchwyt == NULL)
     {
-        wprintf(L"Cannot open process with ID % d, error code : % d\n", _idProcesu, GetLastError());
+        //throw ProcesExp{12,"Pusty uchwyt"};
     }
     if (TerminateProcess(uchwyt, -1))
-    {
-        wprintf(L"Process with ID % d has been terminated\n", _idProcesu, GetLastError());
-    }
+    {}
     else {
-        wprintf(L"Termination of the process with ID % d failed, error code : % d\n", _idProcesu, GetLastError());
+        //throw ProcesExp{ 12,"Blad zamkniecia procesu" };
     }
+
+    TerminateProcess(uchwyt, -1);
     CloseHandle(uchwyt);
 }
 
 void Proces::ZabijProcesOID(int i_id) {
     HANDLE uchwyt = OpenProcess(PROCESS_TERMINATE, FALSE, i_id);
+
     if (uchwyt == NULL)
     {
-        wprintf(L"Cannot open process with ID % d, error code : % d\n", i_id, GetLastError());
+        throw ProcesExp{ 12,"Pusty uchwyt" };
     }
     if (TerminateProcess(uchwyt, -1))
     {
-        wprintf(L"Process with ID % d has been terminated\n", i_id, GetLastError());
     }
     else {
-        wprintf(L"Termination of the process with ID % d failed, error code : % d\n", i_id, GetLastError());
+        throw ProcesExp{ 12,"Blad zamkniecia procesu" };
     }
+
+    TerminateProcess(uchwyt, -1);
+
     CloseHandle(uchwyt);
+}
+
+std::string Proces::getCpuUsage()
+{
+    std::string txt,txt2;
+    double cpu= _proc.GetUsage(_idProcesu);
+    if (cpu == -1) return "-----";
+    txt = std::to_string(cpu);
+    txt2 = txt.substr(0, txt.find("." )+3);
+    return txt2;
 }
