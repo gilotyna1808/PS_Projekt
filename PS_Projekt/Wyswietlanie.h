@@ -1,22 +1,26 @@
 #pragma once
 
-#include<iostream>
-#include<string>
-
-#include "OperacjeNaProcesach.h"
+#include <iostream>
+#include <Windows.h>
+#include <cstdio>
+#include <conio.h>
+#include <string>
 #include "xyio.h"
+#include "OperacjeNaProcesach.h"
+#pragma warning(disable:4996)
 
-struct Tekst
+struct TEXTMENU
 {
 	std::string txt; //Przechowanie tekstu
-	bool nowaLinia = false; //Przechowywanie czy wypisane w nowej lini
+	int curX = NULL; //wspó³rzêdna X
+	int curY = NULL; //wspó³rzêdna Y
 	bool aktywny = false; //Przechowwyane czy aktwyne np. menu opcja usun
 	int koloNieAktywny = 15; // Kolor tekstu jezeli nie aktywne
-	int kolorAktywny = FOREGROUND_GREEN; // Kolor tekstu jezeli aktywne
+	int kolorAktywny = 4; // Kolor tekstu jezeli aktywne
+
 	void Wypisz()
 	{
 		HANDLE hStdOut = GetStdHandle(STD_OUTPUT_HANDLE);
-		if (nowaLinia)printf("\n");
 		if (aktywny)
 		{
 			SetConsoleTextAttribute(hStdOut, (kolorAktywny | 1));
@@ -25,52 +29,58 @@ struct Tekst
 		{
 			SetConsoleTextAttribute(hStdOut, (koloNieAktywny | 1));
 		}
-		printf("%s", txt.c_str());
+		xyprintf(curX, curY, txt.c_str());
 		SetConsoleTextAttribute(hStdOut, (koloNieAktywny | 1));
 	}
 };
-
-//PROBA--------------------------
-struct Strony
+struct TEXTTABELA
 {
-	int dlugoscStrony = 20;
-	OperacjaNaProcesach* operacja;
-	int wszystkieProcesy = operacja->getIloscProcesow();
-	int poczatkowa = 1;
-	int pozostale = wszystkieProcesy - dlugoscStrony;
+	int wiersz; //Prezehowuje informacje o wierszu w którym jest wyswietlana
+	bool aktywny = false; //Przechowuje informacje o tym czy opcja jest wybrana
+	int koloNieAktywny = 15; // Kolor tekstu jezeli nie aktywne
+	int kolorAktywny = 9; // Kolor tekstu jezeli aktywne
+	int tloKoloNieAktywny = 1; // Kolor tekstu jezeli nie aktywne
+	int tloKolorAktywny = 0; // Kolor tekstu jezeli aktywne
+
+	void Wypisz(string txt)
+	{
+		HANDLE hStdOut = GetStdHandle(STD_OUTPUT_HANDLE);
+		if (aktywny)
+		{
+			SetConsoleTextAttribute(hStdOut, (kolorAktywny | tloKolorAktywny));
+		}
+		else
+		{
+			SetConsoleTextAttribute(hStdOut, (koloNieAktywny | tloKoloNieAktywny));
+		}
+		xyprintf(0, wiersz, txt.c_str());
+		SetConsoleTextAttribute(hStdOut, (koloNieAktywny | tloKoloNieAktywny));
+	}
 };
-
-
 
 class Wyswietlanie
 {
 private:
-	int max_x = 120;//Maksymalna wartosc wspolrzednej x
-	int max_y = 30;//Maksymalna wartosc wspolrzednej y
-	int kolumny[6]{ 1,5,35,47,70,76 };//Wspolrzedna x poczatku kolumny ++(Plan)Do zmiany na vektor z mozliwoscia modyfikacji
-	int przesuniecie = 0;
-	int nr_strony = 1;
+
+	OperacjaNaProcesach _procesy;
+
+	std::string createLine(int* kol, std::string nr, std::string nazwa, std::string id, std::string priorytet, std::string cpu, std::string pamiec);
+	std::string createLineBlank(int* kol);
+	std::string createBorder(int* kol);
+	std::string NazwaPriorytetu(DWORD i_priorytet);
+	std::string TextZapis(int* kol, int nr, std::string i_txt);
+	void Menu(TEXTMENU *menu, int size);
+	void Tabela(TEXTTABELA* tabela, int* kol,bool* sort, int strona, int ilWierszy);
+	void ZmianaTabeli(int* kol);
+	void DialogZamykanieProcesu(int wyborTabela, int strona, bool* sortowanie);
+	void WypiszInformacje(int wyborTabela, int strona, bool* sortowanie);
 
 public:
-	Tekst menu{ "Menu: ",true };
-	Tekst opcja1{ "1) Wyswietl ",true };
-	Tekst opcja2{ "2) Usun " };
-	vector<Proces> procesy;
-	int aktualnaStrona = 1;
-	int aktualnaWartoscMinimalna = 1;
-	int aktualnaWartoscMaksymalna = 20;
 
-	Wyswietlanie();
-	~Wyswietlanie();
+	Wyswietlanie(OperacjaNaProcesach i_procesy) :
+		_procesy(i_procesy) {};
+	
+	void Ekran();
 
-	void WyswietlOpis();
-	void WyswietlTabele(int i_row);
-	void WyswietlMenu(int y = 30);
-	void WyswietlProcesy(OperacjaNaProcesach* dane, int min, int max); //Wyswietlanie danych o procesach
-	void WyswietlProcesySort(OperacjaNaProcesach* dane, int min, int max); //Wyswietlanie danych o procesach
-	int getPrzesuniecie();
-	std::string NazwaPriorytetu(DWORD i_priorytet);
-	void Wypisz(int i_poczatek, int i_koniec, std::string i_txt);
-	void KontrolerWyswietlania(OperacjaNaProcesach* dane, int iloscProcesow, bool usuwanie, bool sortowane);
 };
 

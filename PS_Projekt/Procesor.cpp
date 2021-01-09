@@ -65,7 +65,7 @@ double Procesor::GetUsage(int i_pid)
 			::InterlockedDecrement(&_iloscPrzejsc);
 			return tempCpu;
 		}
-		HANDLE hProcess = OpenProcess(PROCESS_ALL_ACCESS, FALSE, i_pid);
+		HANDLE hProcess = OpenProcess(PROCESS_ALL_ACCESS, TRUE, i_pid);
 		FILETIME czasSysBez, czasSysJ, czasSysU, czasProcS, czasProcK, czasProcJ, czasProcU;
 		if (!GetSystemTimes(&czasSysBez, &czasSysJ, &czasSysU) || !GetProcessTimes(hProcess, &czasProcS, &czasProcK, &czasProcJ, &czasProcU))
 		{

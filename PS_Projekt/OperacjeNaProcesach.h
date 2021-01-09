@@ -3,6 +3,7 @@
 #include<vector>
 #include <map>
 #include <windows.h>
+#include <Psapi.h>
 #include <tlhelp32.h>
 #include <tchar.h>
 #include <algorithm>
