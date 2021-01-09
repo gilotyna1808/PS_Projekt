@@ -126,7 +126,7 @@ void Wyswietlanie::Tabela(TEXTTABELA* tabela, int* kol,bool* sort, int strona, i
 		TextZapis(kol, 1, "Nazwa"),
 		TextZapis(kol, 2, "ID Procesu"),
 		TextZapis(kol, 3, "Priorytet"),
-		TextZapis(kol, 4, "CPU[ ]"),
+		TextZapis(kol, 4, "CPU[%%]"),
 		TextZapis(kol, 5, "Pamiec[K]")
 	);
 	tab[2] = createBorder(kol);
@@ -145,6 +145,7 @@ void Wyswietlanie::Tabela(TEXTTABELA* tabela, int* kol,bool* sort, int strona, i
 					Proces p;
 					if (sort[0])	p = _procesy.getProces((i - 2) + (strona * 20));
 					if (sort[1]) p = _procesy.getProcesSort((i - 2) + (strona * 20));
+					p.getCpuUsage();
 					string str = createLine(
 						kol,
 						TextZapis(kol, 0, std::to_string(p.getNr())),
@@ -380,6 +381,7 @@ void Wyswietlanie::Ekran()
 		setcursor(0, 1);
 		Tabela(tabela, kol,sortowanie, strona, (rozmiar - (strona * 20)));
 		std::string str = ("Strona " + std::to_string(strona + 1) + "/" + std::to_string(stronaMax));
+		xyprintf(0, 24, "                                                                         ");
 		xyprintf(0, 24, str.c_str());
 
 		//Wypisywanie Menu

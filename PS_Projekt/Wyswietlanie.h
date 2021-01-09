@@ -61,17 +61,25 @@ struct TEXTTABELA
 class Wyswietlanie
 {
 private:
-	int max_x = 120;//Maksymalna wartosc wspolrzednej x
-	int max_y = 30;//Maksymalna wartosc wspolrzednej y
-	int kolumny[6]{ 1,5,35,47,70,76 };//Wspolrzedna x poczatku kolumny ++(Plan)Do zmiany na vektor z mozliwoscia modyfikacji
-	int przesuniecie = 0;
-	int nr_strony = 1;
+
+	OperacjaNaProcesach _procesy;
+
+	std::string createLine(int* kol, std::string nr, std::string nazwa, std::string id, std::string priorytet, std::string cpu, std::string pamiec);
+	std::string createLineBlank(int* kol);
+	std::string createBorder(int* kol);
+	std::string NazwaPriorytetu(DWORD i_priorytet);
+	std::string TextZapis(int* kol, int nr, std::string i_txt);
+	void Menu(TEXTMENU* menu, int size);
+	void Tabela(TEXTTABELA* tabela, int* kol, bool* sort, int strona, int ilWierszy);
+	void ZmianaTabeli(int* kol);
+	void DialogZamykanieProcesu(int wyborTabela, int strona, bool* sortowanie);
+	void WypiszInformacje(int wyborTabela, int strona, bool* sortowanie);
 
 public:
 
 	Wyswietlanie(OperacjaNaProcesach i_procesy) :
 		_procesy(i_procesy) {};
-	
+
 	void Ekran();
 
 };
