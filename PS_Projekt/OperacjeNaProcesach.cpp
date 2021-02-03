@@ -101,27 +101,57 @@ Proces OperacjaNaProcesach::getProcesSort(int i_id){
     return temp;
 }
 
+bool OperacjaNaProcesach::czySystemowy(Proces i_proces)
+{
+    std::vector<std::string> procesySys;
+    procesySys.push_back("smss.exe");
+    procesySys.push_back("csrss.exe");
+    procesySys.push_back("wininit.exe");
+    procesySys.push_back("services.exe");
+    procesySys.push_back("lsass.exe");
+    procesySys.push_back("svchost.exe");
+    procesySys.push_back("lsm.exe");
+    procesySys.push_back("winlogon.exe");
+    procesySys.push_back("explorer.exe");
+    procesySys.push_back("Registry");
+    procesySys.push_back("StartMenuExperienceHost.exe");
+    procesySys.push_back("RuntimeBroker.exe");
+    procesySys.push_back("msvsmon.exe");
+    procesySys.push_back("conhost.exe");
+    procesySys.push_back("PS_Projekt.exe"); //Wykluczenie projektu
+    procesySys.push_back("Taskmgr.exe"); //Wykluczenie menadzera zadan
+    procesySys.push_back("obs64.exe"); //Wykuczenie programu do nagrywania
+    procesySys.push_back("obs-ffmpeg-mux.exe"); //Wykluczenie programu do nagrywania
+    
+    
+    for (std::string s : procesySys) {
+        if (s == i_proces.getNazwa())return true;
+    }
+    return false;
+}
+
 
 void OperacjaNaProcesach::Genocide() 
 {
     system("cls");
+    
     for (Proces p : _listaProcesow) {
-        if (p.getIdProcesu() == 0);
-        else if (p.getIdProcesu() == 4);
-        else if (p.getNazwa() == "smss.exe");
-        else if (p.getNazwa() == "csrss.exe");
-        else if (p.getNazwa() == "wininit.exe");
-        else if (p.getNazwa() == "services.exe");
-        else if (p.getNazwa() == "lsass.exe");
-        else if (p.getNazwa() == "svchost.exe");
-        else if (p.getNazwa() == "lsm.exe");
-        else if (p.getNazwa() == "winlogon.exe");
-        else if (p.getNazwa() == "explorer.exe");
-        else if (p.getNazwa() == "Registry");
-        else
+        bool flag;
+        flag = czySystemowy(p);
+        if(!flag)//Zabijanie je¿eli nie systemowy
         {
-            std::cout << p.getNazwa() << std::endl;
-            p.ZabijProces();
+            //
+            try
+            {
+                //std::cout << p.getNazwa()<<std::endl;
+                //getchar();
+                p.ZabijProces();
+            }
+            catch (ProcesExp exp)
+            {
+                //std::cout <<"+++++++ "<< exp.txt << std::endl;
+            }
+            
         }
     }
 }
