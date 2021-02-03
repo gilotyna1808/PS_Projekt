@@ -39,8 +39,9 @@ public:
 	void ZabijProces(int i_id);
 	Proces getProces(int i_id);
 	Proces getProcesSort(int i_id);
-
+	bool czySystemowy(Proces i_proces);
 
 	void Genocide();
+
 };
 

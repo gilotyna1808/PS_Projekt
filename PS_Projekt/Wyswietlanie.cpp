@@ -303,7 +303,7 @@ void Wyswietlanie::Ekran()
 	for (int i = 0; i < 30; i++)std::cout << "" << std::endl;
 
 	//Ustawienia Tabeli
-	int kol[6]{ 4,34,45,55,62,100 };
+	int kol[6]{ 4,34,45,55,63,100 };
 	TEXTMENU menu[10] = {
 		TEXTMENU { "+------------+",105,0,false },
 		TEXTMENU { "+    MENU    +",105,1,false },
@@ -480,13 +480,12 @@ void Wyswietlanie::Ekran()
 					flagMenu = false;
 					flagTab = true;
 				}
-				else if (wyborMenu == 5)//Do zrobienia
+				else if (wyborMenu == 5)
 				{
 					// Zamykanie wszystkich procesow
 					clear();
-					int xa;
 					std::cout << "Zamykanie wszystkich procesow: " << std::endl;
-					xa = getch();
+					_procesy.Genocide();
 				}
 				flag1enter = false;
 			}
