@@ -119,9 +119,9 @@ bool OperacjaNaProcesach::czySystemowy(Proces i_proces)
     procesySys.push_back("msvsmon.exe");
     procesySys.push_back("conhost.exe");
     procesySys.push_back("PS_Projekt.exe"); //Wykluczenie projektu
-    procesySys.push_back("Taskmgr.exe"); //Wykluczenie menadzera zadan
-    procesySys.push_back("obs64.exe"); //Wykuczenie programu do nagrywania
-    procesySys.push_back("obs-ffmpeg-mux.exe"); //Wykluczenie programu do nagrywania
+    //procesySys.push_back("Taskmgr.exe"); //Wykluczenie menadzera zadan
+    //procesySys.push_back("obs64.exe"); //Wykuczenie programu do nagrywania
+    //procesySys.push_back("obs-ffmpeg-mux.exe"); //Wykluczenie programu do nagrywania
     
     
     for (std::string s : procesySys) {
